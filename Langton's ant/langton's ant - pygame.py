@@ -6,9 +6,9 @@ from random import randint
 
 pygame.init()
 
-w = 400
-h = 400
-quant_ants = 10
+w = 700
+h = 700
+quant_ants = 20
 
 size = [w, h]
 
@@ -22,7 +22,8 @@ def main():
     ants = np.empty(quant_ants, dtype=object)
     for i in range(quant_ants):
         ants[i] = Ant(randint(0, w - 1), randint(0, h - 1), randint(0, 3))
-    
+
+    screen.fill((255, 255, 255))
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -32,13 +33,22 @@ def main():
 
         ## task === create a destruction ant that destroy the things on the grid
         ## is capable of killing another ants
-        for j in range(500):
+        for j in range(100):
             for i in range(quant_ants):
                 ants[i].changeGrid(grid)
-        ####
+                x = ants[i].antx
+                y = ants[i].anty
+                px = ants[i].preAntX
+                py = ants[i].preAntY
+                color = (grid[x, y, :])
+                preColor = (grid[px, py, :])
+                screen.set_at((x, y), color)
+                screen.set_at((px, py), color)
                 
-        screen.fill((0, 0, 0, 0))
-        pygame.surfarray.blit_array(screen, grid)
+        ####
+        #without use, cause the set_at is doing all the job and better
+        #screen.fill((255, 255, 255))
+        #pygame.surfarray.blit_array(screen, grid)
         pygame.display.update()
 
 if __name__ == '__main__':

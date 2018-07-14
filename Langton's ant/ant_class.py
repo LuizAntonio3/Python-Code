@@ -3,6 +3,8 @@ class Ant:
         self.antx = initial_x
         self.anty = initial_y
         self.direction = initial_direction
+        self.preAntX = self.antx
+        self.preAntY = self.anty
         
         self.antup = 0
         self.antright = 1
@@ -39,6 +41,9 @@ class Ant:
             self.direction = self.antup
 
     def changeGrid(self, grid):
+        self.preAntX = self.antx
+        self.preAntY = self.anty
+        
         state = grid[self.antx, self.anty, 0]
         if state == 0:
             self.moveRight()
